@@ -63,46 +63,60 @@ export function getDeviceCategory() {
   return 'desktop';
 }
 
+// Queue for events fired before window.umami has finished loading
+const pendingEventsQueue = [];
+
 /**
- * Initialize and inject the official Umami tracking script
+ * Flush any queued custom events once Umami is ready
+ */
+function flushPendingEvents() {
+  if (typeof window === 'undefined' || !window.umami || typeof window.umami.track !== 'function') {
+    return;
+  }
+  while (pendingEventsQueue.length > 0) {
+    const item = pendingEventsQueue.shift();
+    try {
+      window.umami.track(item.eventName, item.data);
+    } catch {
+      // Ignore silently
+    }
+  }
+}
+
+/**
+ * Initialize analytics, active engagement timers, and event flushing
+ * (The official Umami script is loaded declaratively via index.html)
  */
 export function initAnalytics() {
   if (typeof window === 'undefined') return;
-  if (isAnalyticsOptedOut()) return;
 
-  const scriptUrl = import.meta.env.VITE_UMAMI_SCRIPT_URL || 'https://cloud.umami.is/script.js';
-  const websiteId = import.meta.env.VITE_UMAMI_WEBSITE_ID;
-
-  // Don't inject if websiteId is missing or default placeholder
-  if (!websiteId || websiteId.includes('your_') || websiteId.trim() === '') {
+  // If visitor is opted out, remove the script element from DOM
+  if (isAnalyticsOptedOut()) {
+    const script = document.querySelector('script[src*="umami"]');
+    if (script) {
+      script.remove();
+    }
     return;
   }
 
-  // Prevent duplicate script injection
-  const existingScript = document.querySelector(`script[data-website-id="${websiteId}"]`);
-  if (existingScript) return;
-
-  try {
-    const script = document.createElement('script');
-    script.async = true;
-    script.defer = true;
-    script.src = scriptUrl;
-    script.setAttribute('data-website-id', websiteId);
-    script.setAttribute('data-auto-track', 'true');
-    script.onerror = () => {
-      console.warn('Umami analytics script could not be loaded (e.g. adblocker active). Website continuing normally.');
-    };
-    document.head.appendChild(script);
-  } catch (err) {
-    console.warn('Analytics initialization skipped:', err);
-  }
+  // Poll briefly for window.umami ready state to flush any early queued events
+  let checkAttempts = 0;
+  const readyInterval = setInterval(() => {
+    checkAttempts += 1;
+    if (window.umami && typeof window.umami.track === 'function') {
+      flushPendingEvents();
+      clearInterval(readyInterval);
+    } else if (checkAttempts >= 30) { // Stop polling after ~15s (e.g. adblocker)
+      clearInterval(readyInterval);
+    }
+  }, 500);
 
   // Start active engagement tracking
   initActiveEngagementTracker();
 }
 
 /**
- * Core event tracking function with safe fallbacks
+ * Core event tracking function with safe fallbacks and queueing
  * 
  * @param {string} eventName - Standardized event name
  * @param {object} [eventData] - Anonymous non-PII properties
@@ -117,10 +131,12 @@ export function trackEvent(eventName, eventData = {}) {
     ...eventData,
   };
 
-  // Safe Umami tracking
+  // Safe Umami tracking: track immediately if ready, or queue until script loads
   try {
     if (window.umami && typeof window.umami.track === 'function') {
       window.umami.track(eventName, sanitizedData);
+    } else {
+      pendingEventsQueue.push({ eventName, data: sanitizedData });
     }
   } catch (err) {
     console.warn(`[Analytics] Track event failed silently: ${eventName}`, err);
