@@ -114,7 +114,7 @@ export default function VoiceNotePlayer() {
               <button
                 onClick={togglePlayback}
                 className="w-16 h-16 rounded-full flex items-center justify-center bg-vintage-wine text-vintage-ivory hover:bg-vintage-espresso hover:scale-105 active:scale-95 transition-all duration-300 shadow-paper focus:outline-none focus:ring-4 focus:ring-vintage-rose/30 mt-2"
-                aria-label={isPlaying ? "Pause voice message" : "Play voice message from Ibrahim"}
+                aria-label={isPlaying ? "Pause voice message" : "Play my voice message"}
               >
                 {isPlaying ? (
                   <Pause className="w-7 h-7 fill-current" />

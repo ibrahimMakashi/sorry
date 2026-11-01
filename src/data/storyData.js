@@ -12,12 +12,12 @@ export const storyScenes = [
     subtitle: "Bosch DV Packing Area",
     image: "/images/story/scene-01-first-meeting.png",
     fallbackImage: "/images/story/1.png",
-    alt: "Ibrahim and Ananya working in the Bosch DV packing area on 4 March 2024",
+    alt: "Working with you in the Bosch DV packing area on 4 March 2024",
     chapter: "The Beginning",
     layout: "cinematic-split",
     narrative: [
-      "This was the first time I saw Ananya at Bosch, in the DV packing area.",
-      "We were working in the same workplace. I was wearing my dark red half-sleeve collared Bosch shirt, black jeans and black shoes. She was wearing her green half-sleeve collared Bosch shirt, blue jeans and her hair was tied in a bun.",
+      "This was the first time I saw you at Bosch, in the DV packing area.",
+      "We were working in the same workplace. I was wearing my dark red half-sleeve collared Bosch shirt, black jeans and black shoes. You were wearing your green half-sleeve collared Bosch shirt, blue jeans and your hair was tied in a bun.",
       "It was an ordinary day. We spoke normally. I did not have any romantic feelings at that time.",
       "But unknowingly, this became the beginning of a memory I would carry for years."
     ],
@@ -31,13 +31,13 @@ export const storyScenes = [
     subtitle: "Women's Day Celebration",
     image: "/images/story/scene-02-womens-day-smile.png",
     fallbackImage: "/images/story/2.png",
-    alt: "Ananya in a black sari smiling as she walks past Ibrahim's workspace on Women's Day",
+    alt: "You in a black sari smiling as you walked past my workspace on Women's Day",
     chapter: "The Beginning",
     layout: "framed-scrapbook",
     narrative: [
-      "On 6 March 2024, during the Women's Day celebration, Ananya wore a beautiful black sari.",
-      "She passed by my work area.",
-      "She looked at me and smiled. I became nervous and smiled back.",
+      "On 6 March 2024, during the Women's Day celebration, you wore a beautiful black sari.",
+      "You passed by my work area.",
+      "You looked at me and smiled. I became nervous and smiled back.",
       "It was such a small interaction, but I still remember it."
     ],
     highlightQuote: "It was such a small interaction, but I still remember it."
@@ -50,12 +50,12 @@ export const storyScenes = [
     subtitle: "The News I Didn't Expect",
     image: "/images/story/scene-03-resignation-news.png",
     fallbackImage: "/images/story/3.png",
-    alt: "Ananya telling Ibrahim she is resigning as she finishes her shift",
+    alt: "You telling me you were resigning as you finished your shift",
     chapter: "The Bosch Memories",
     layout: "split-reverse",
     narrative: [
-      "On 12 March 2024, I was working the second shift while Ananya was finishing her first shift.",
-      "When she was leaving the company, she told me that she was resigning.",
+      "On 12 March 2024, I was working the second shift while you were finishing your first shift.",
+      "When you were leaving the company, you told me that you were resigning.",
       "I felt sad hearing that. But I did not know what to say.",
       "I simply said: \"Take care and bye.\""
     ],
@@ -66,18 +66,18 @@ export const storyScenes = [
     sceneNumber: "04",
     date: "13 March 2024",
     title: "Just to See You",
-    subtitle: "Her Last Day at Bosch",
+    subtitle: "Your Last Day at Bosch",
     image: "/images/story/scene-04-just-to-see-you.png",
     fallbackImage: "/images/story/4.png",
-    alt: "Ibrahim arriving early during Ramadan fasting, Ananya gently touching his right shoulder",
+    alt: "Arriving early during Ramadan fasting, and you gently touching my right shoulder",
     chapter: "The Bosch Memories",
     layout: "cinematic-full",
     narrative: [
-      "13 March 2024 was Ananya's last day at Bosch.",
-      "I was originally scheduled for the second shift, but I came for the first shift just to see her.",
+      "13 March 2024 was your last day at Bosch.",
+      "I was originally scheduled for the second shift, but I came for the first shift just to see you.",
       "It was Ramadan. I was fasting and had not slept properly. Still, I came early.",
-      "When she noticed me, she asked why I had come during the first shift. I quietly answered: \"Just to see you only.\"",
-      "She smiled and gently touched my right shoulder. That little gesture became one of the most unforgettable memories of my life."
+      "When you noticed me, you asked why I had come during the first shift. I quietly answered: \"Just to see you only.\"",
+      "You smiled and gently touched my right shoulder. That little gesture became one of the most unforgettable memories of my life."
     ],
     highlightQuote: "\"Just to see you only.\""
   },
@@ -89,16 +89,16 @@ export const storyScenes = [
     subtitle: "The Workstation at DV Packing",
     image: "/images/story/scene-05-are-you-sad.png",
     fallbackImage: "/images/story/5.png",
-    alt: "Ananya resting her head on purple-gloved hands behind the blue bin filled with DV capsules, asking in Kannada",
+    alt: "You resting your head on purple-gloved hands behind the blue bin filled with DV capsules, asking me in Kannada",
     chapter: "The Bosch Memories",
     layout: "editorial-feature",
     narrative: [
-      "Ananya was still working at her DV packing workstation.",
-      "She was standing behind a small blue bin filled with transparent DV packing capsules with yellow caps.",
-      "She rested both her purple-gloved hands on the bin and gently placed her head on her hands.",
-      "Then she looked at me and asked in Kannada:",
+      "You were still working at your DV packing workstation.",
+      "You were standing behind a small blue bin filled with transparent DV packing capsules with yellow caps.",
+      "You rested both your purple-gloved hands on the bin and gently placed your head on your hands.",
+      "Then you looked at me and asked in Kannada:",
       "\"ನಾನು ಹೋಗ್ತಾ ಇದ್ದೀನಿ, ಬೇಜಾರಾ?\" (Nanu hogta ideni, bejara? — \"I'm leaving, are you sad?\")",
-      "I stood in front of her, listening. It was such a simple question, but I did not know how to answer."
+      "I stood in front of you, listening. It was such a simple question, but I did not know how to answer."
     ],
     specialKannaQuote: "ನಾನು ಹೋಗ್ತಾ ಇದ್ದೀನಿ, ಬೇಜಾರಾ?",
     kannadaTransliteration: "Nanu hogta ideni, bejara?",
@@ -113,17 +113,17 @@ export const storyScenes = [
     subtitle: "A Silence That Held Everything",
     image: "/images/story/scene-06-words-i-couldnt-say.png",
     fallbackImage: "/images/story/6.png",
-    alt: "Ibrahim standing in silence looking at Ananya, wanting to confess or ask for her number",
+    alt: "Standing in silence looking at you, wanting to confess or ask for your phone number",
     chapter: "The Bosch Memories",
     layout: "split-focus",
     narrative: [
-      "After she asked whether I was sad that she was leaving, I became silent.",
-      "I wanted to tell her that I liked her. I also thought about asking for her phone number.",
+      "After you asked whether I was sad that you were leaving, I became silent.",
+      "I wanted to tell you that I liked you. I also thought about asking for your phone number.",
       "But I could not decide what to say.",
-      "I kept looking at her, trying to find the right words. But the moment passed.",
+      "I kept looking at you, trying to find the right words. But the moment passed.",
       "I said nothing."
     ],
-    highlightQuote: "I kept looking at her, trying to find the right words. But the moment passed."
+    highlightQuote: "I kept looking at you, trying to find the right words. But the moment passed."
   },
   {
     id: 7,
@@ -133,17 +133,17 @@ export const storyScenes = [
     subtitle: "Outside the Bosch Gate",
     image: "/images/story/scene-07-last-goodbye.png",
     fallbackImage: "/images/story/7.png",
-    alt: "Ibrahim waving goodbye at the Bosch entrance as Ananya walks toward the employee buses at 2:10 PM",
+    alt: "Waving goodbye at the Bosch entrance as you walked toward the employee buses at 2:10 PM",
     chapter: "The Bosch Memories",
     layout: "cinematic-full",
     narrative: [
-      "After the shift, Ananya left the company. It was 2:10 PM.",
+      "After the shift, you left the company. It was 2:10 PM.",
       "Outside the Bosch company, the employee buses were waiting.",
-      "I stood near the company entrance. As she walked towards the buses, I raised my hand and waved goodbye.",
-      "She turned back, smiled and continued walking. I watched her leave.",
-      "I did not know that this would become the last time I saw her at Bosch."
+      "I stood near the company entrance. As you walked towards the buses, I raised my hand and waved goodbye.",
+      "You turned back, smiled and continued walking. I watched you leave.",
+      "I did not know that this would become the last time I saw you at Bosch."
     ],
-    highlightQuote: "She turned back, smiled and continued walking. I watched her leave."
+    highlightQuote: "You turned back, smiled and continued walking. I watched you leave."
   },
   {
     id: 8,
@@ -154,13 +154,13 @@ export const storyScenes = [
     subtitle: "Sitting Alone in My Room",
     image: "/images/story/scene-08-words-left-behind.png",
     fallbackImage: "/images/story/8.png",
-    alt: "Ibrahim sitting alone in his room that evening, reflecting on the words he left unsaid",
+    alt: "Sitting alone in my room that evening, reflecting on the words I left unsaid to you",
     chapter: "The Evening",
     layout: "intimate-darker",
     narrative: [
       "After returning home, I kept thinking about everything that had happened.",
-      "I remembered her question. I remembered her smile. I remembered the way she had touched my shoulder.",
-      "I kept thinking about how I could have told her that I liked her. I could have asked for her number.",
+      "I remembered your question. I remembered your smile. I remembered the way you had touched my shoulder.",
+      "I kept thinking about how I could have told you that I liked you. I could have asked for your number.",
       "But I did neither.",
       "That evening, sitting alone in my room, I regretted not finding the courage to say what I wanted."
     ],
@@ -174,16 +174,16 @@ export const storyScenes = [
     subtitle: "A Memory Preserved in Sleep",
     image: "/images/story/scene-09-dreams-never-left.png",
     fallbackImage: "/images/story/9.png",
-    alt: "A dreamlike illustration of Ananya in her green Bosch shirt",
+    alt: "A dreamlike illustration of you in your green Bosch shirt",
     chapter: "The Dreams",
     layout: "dreamlike-gold",
     narrative: [
       "More than two and a half years passed. I tried to move forward with my life.",
-      "But sometimes Ananya appeared in my dreams.",
-      "She always wore the same green Bosch shirt I remembered from the days we worked together.",
-      "In one particularly memorable dream, she looked at me and said:",
+      "But sometimes you appeared in my dreams.",
+      "You always wore the same green Bosch shirt I remembered from the days we worked together.",
+      "In one particularly memorable dream, you looked at me and said:",
       "\"Ibrahim, I am with you always.\"",
-      "It was only a dream. I know it was not a real conversation or a promise from her. But the feeling stayed with me."
+      "It was only a dream. I know it was not a real conversation or a promise from you. But the feeling stayed with me."
     ],
     dreamQuote: "Ibrahim, I am with you always.",
     dreamLabel: "A line from a dream I remembered — not a real conversation or a promise.",
@@ -198,20 +198,20 @@ export const storyScenes = [
     subtitle: "Reaching Out in 2026",
     image: "/images/story/scene-10-message-after-years.png",
     fallbackImage: "/images/story/10.png",
-    alt: "Ibrahim in 2026 holding his phone with the initial Instagram and WhatsApp messages",
+    alt: "Holding my phone in 2026 with our initial messages across the years",
     chapter: "The Message in 2026",
     layout: "modern-split",
     narrative: [
-      "In 2026, after carrying these memories for years, I finally decided to contact Ananya through Instagram and WhatsApp.",
-      "At first, she did not respond. Eventually, she replied:",
+      "In 2026, after carrying these memories for years, I finally decided to reach out to you through Instagram and WhatsApp.",
+      "At first, you did not respond. Eventually, you replied:",
       "\"excuse me? do I know u\"",
-      "I explained that we had worked together at Bosch. She remembered me.",
-      "For me, this was an emotional moment because I had wondered for so long whether she would remember those days.",
+      "I explained that we had worked together at Bosch. You remembered me.",
+      "For me, this was an emotional moment because I had wondered for so long whether you would remember those days.",
       "This was the beginning of a conversation I had imagined having for years."
     ],
     chat: [
-      { sender: "Ibrahim", text: "Hi, we worked together at Bosch." },
-      { sender: "Ananya", text: "excuse me? do I know u" }
+      { sender: "Ibrahim (Me)", text: "Hi, we worked together at Bosch." },
+      { sender: "Ananya (You)", text: "excuse me? do I know u" }
     ],
     highlightQuote: "This was the beginning of a conversation I had imagined having for years."
   }
@@ -256,7 +256,7 @@ export const storySections = {
   },
   voiceNote: {
     heading: "A few words, in my own voice — Ibrahim",
-    caption: "A quiet spoken message from Ibrahim",
+    caption: "A quiet spoken message from my heart",
     supportingText: "Some thoughts are meant to be heard softly."
   },
   finalLetter: {

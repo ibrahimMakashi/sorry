@@ -76,7 +76,7 @@ export default function VoiceMessage() {
     <section
       id="voice-note"
       className="relative min-h-[85vh] py-24 px-4 sm:px-6 bg-vintage-ivory overflow-hidden flex items-center justify-center"
-      aria-label="Voice Message from Ibrahim"
+      aria-label="Personal Voice Message"
     >
       <div className="relative max-w-xl mx-auto w-full z-10">
         
@@ -124,7 +124,7 @@ export default function VoiceMessage() {
               <button
                 onClick={togglePlayback}
                 className="w-16 h-16 rounded-full flex items-center justify-center bg-vintage-wine text-vintage-ivory hover:bg-vintage-espresso hover:scale-105 active:scale-95 transition-all duration-300 shadow-paper focus:outline-none focus:ring-4 focus:ring-vintage-rose/30"
-                aria-label={isPlaying ? "Pause voice message" : "Play voice message from Ibrahim"}
+                aria-label={isPlaying ? "Pause voice message" : "Play my voice message"}
               >
                 {isPlaying ? (
                   <Pause className="w-7 h-7 fill-current" />
@@ -164,7 +164,7 @@ export default function VoiceMessage() {
               <div className="w-full flex justify-between items-center font-sans text-xs text-vintage-dusty tracking-wider px-2">
                 <span>{formatTime(currentTime)}</span>
                 <span className="font-serif italic text-vintage-ink/70">
-                  {isPlaying ? 'Playing Ibrahim\'s recording...' : 'Tap play to listen'}
+                  {isPlaying ? 'Playing my recording...' : 'Tap play to listen'}
                 </span>
                 <span>{formatTime(duration || 5.5)}</span>
               </div>

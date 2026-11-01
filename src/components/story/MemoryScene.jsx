@@ -152,7 +152,7 @@ export default function MemoryScene({ scene, isAlternate = false }) {
                 
                 {/* Ibrahim bubble */}
                 <div className="flex flex-col items-start">
-                  <span className="text-[10px] font-sans text-vintage-dusty mb-0.5">Ibrahim</span>
+                  <span className="text-[10px] font-sans text-vintage-dusty mb-0.5">Me</span>
                   <div className="bg-[#EBE2D3] text-vintage-ink text-xs sm:text-sm px-3.5 py-2 rounded-2xl rounded-tl-none font-sans">
                     {scene.chat[0].text}
                   </div>
@@ -160,7 +160,7 @@ export default function MemoryScene({ scene, isAlternate = false }) {
 
                 {/* Ananya bubble */}
                 <div className="flex flex-col items-end">
-                  <span className="text-[10px] font-sans text-vintage-dusty mb-0.5">Ananya</span>
+                  <span className="text-[10px] font-sans text-vintage-dusty mb-0.5">You</span>
                   <div className="bg-vintage-wine text-vintage-ivory text-xs sm:text-sm px-3.5 py-2 rounded-2xl rounded-tr-none font-sans font-medium">
                     {scene.chat[1].text}
                   </div>

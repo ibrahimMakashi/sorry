@@ -7,8 +7,8 @@ import { Sparkles, Heart } from 'lucide-react';
 export default function FlyingCompanion({ envelopeState = 'closed' }) {
   const { playSound } = useAudio();
   const prefersReducedMotion = useReducedMotion();
-  const [bubbleText, setBubbleText] = useState("Ibrahim wants to say something to you... ♡");
-  const [bubbleSubtext, setBubbleSubtext] = useState("He is truly sorry, Ananya 🌸");
+  const [bubbleText, setBubbleText] = useState("I want to say something to you... ♡");
+  const [bubbleSubtext, setBubbleSubtext] = useState("I am truly sorry, Ananya 🌸");
   const [isSpinning, setIsSpinning] = useState(false);
   const [showBubble, setShowBubble] = useState(true);
 
@@ -16,16 +16,16 @@ export default function FlyingCompanion({ envelopeState = 'closed' }) {
 
   useEffect(() => {
     if (envelopeState === 'closed') {
-      setBubbleText("Ibrahim wants to say something to you... ♡");
-      setBubbleSubtext("He is truly sorry, Ananya 🌸");
+      setBubbleText("I want to say something to you... ♡");
+      setBubbleSubtext("I am truly sorry, Ananya 🌸");
       setShowBubble(true);
     } else if (envelopeState === 'opening') {
-      setBubbleText("He wrote this apology from his heart... 💌");
+      setBubbleText("I wrote this message from my heart... 💌");
       setBubbleSubtext("Please take your time reading...");
       setShowBubble(true);
     } else if (envelopeState === 'opened') {
-      setBubbleText("Ibrahim is deeply sorry, Ananya... ♡");
-      setBubbleSubtext("Please read his letter 💌");
+      setBubbleText("I am deeply sorry, Ananya... ♡");
+      setBubbleSubtext("Please read my letter 💌");
       setShowBubble(true);
       const timer = setTimeout(() => setShowBubble(false), 9000);
       return () => clearTimeout(timer);
@@ -39,11 +39,11 @@ export default function FlyingCompanion({ envelopeState = 'closed' }) {
     setTimeout(() => setIsSpinning(false), 600);
 
     const phrases = [
-      { text: "Ibrahim wants to say he's truly sorry... ♡", sub: "Every word comes from his heart 🌸" },
-      { text: "He is so sorry for hurting your feelings... ♡", sub: "He cares about you deeply ✨" },
-      { text: "Ibrahim wrote this apology with love & sincerity 💌", sub: "Take all the time you need ♡" },
-      { text: "I'm sorry, Ananya... please read his letter ♡", sub: "No rush or pressure at all 🌸" },
-      { text: "He truly values you more than words can say ♡", sub: "Forever grateful for you ✨" },
+      { text: "I want to say I'm truly sorry... ♡", sub: "Every word comes from my heart 🌸" },
+      { text: "I am sorry for making you feel uncomfortable... ♡", sub: "I respect you deeply ✨" },
+      { text: "I wrote this letter with honesty & sincerity 💌", sub: "Take all the time you need ♡" },
+      { text: "I am sorry, Ananya... please read my letter ♡", sub: "No rush or pressure at all 🌸" },
+      { text: "I truly value you and respect your answer ♡", sub: "Forever grateful for you ✨" },
     ];
     const picked = phrases[Math.floor(Math.random() * phrases.length)];
     setBubbleText(picked.text);

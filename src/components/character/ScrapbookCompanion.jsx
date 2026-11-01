@@ -29,7 +29,7 @@ export default function ScrapbookCompanion({ currentChapter = 'hero' }) {
     } else if (currentChapter === 'reflection') {
       msg = "Take your time... no rush at all ♡";
     } else if (currentChapter === 'apology-letter') {
-      msg = "Words Ibrahim wanted to say...";
+      msg = "Words I wanted to say...";
     } else if (currentChapter === 'voice-note') {
       msg = "Listening quietly...";
     } else if (currentChapter === 'final-letter') {
@@ -59,7 +59,7 @@ export default function ScrapbookCompanion({ currentChapter = 'hero' }) {
       "I'm here with you! ♡",
       "Take all the time you need.",
       "A little flower for you 🌸",
-      "Ibrahim means every word.",
+      "I mean every word.",
       "Thank you for reading this story ♡"
     ];
     const picked = randomPhrases[Math.floor(Math.random() * randomPhrases.length)];

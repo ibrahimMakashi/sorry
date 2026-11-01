@@ -173,7 +173,7 @@ export default function ChapterSixResponse({ isCompleted = false, onComplete }) 
                     className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-vintage-wine hover:bg-vintage-espresso text-vintage-ivory font-serif text-sm sm:text-base tracking-wider uppercase transition-all shadow-paper hover:shadow-paper-lg"
                   >
                     <Send className="w-4 h-4" />
-                    <span>{isSubmitting ? "Sharing thoughts..." : "Share With Ibrahim & Unlock Next Page"}</span>
+                    <span>{isSubmitting ? "Sharing thoughts..." : "Share With Me & Unlock Next Page"}</span>
                   </button>
                 </div>
               </form>

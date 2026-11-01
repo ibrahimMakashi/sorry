@@ -11,7 +11,7 @@ export const storyConfig = {
   // Website metadata
   websiteTitle: "A Letter for Ananya",
   mainTagline: "Some things are too important to leave unsaid.",
-  envelopeSubtitle: "Someone has written you a little something...",
+  envelopeSubtitle: "I wrote you a little something...",
   envelopeButtonText: "OPEN THIS LETTER",
   envelopeNextButtonText: "TAP TO NEXT",
   envelopeNextSubtext: "There's something I want to tell you...",
