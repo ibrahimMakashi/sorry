@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-paper: #F4EBDD;
+  --color-ivory: #FBF7EF;
+  --color-blush: #F0D9D8;
+  --color-dusty: #C58B94;
+  --color-rose: #A95366;
+  --color-wine: #733E4B;
+  --color-espresso: #42322F;
+  --color-ink: #493D38;
+  --color-champagne: #D6BE97;
+}
+
+/* Custom Vintage Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4EBDD;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C58B94;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A95366;
+}
+
+/* Background Paper Fiber Texture (pure SVG / CSS) */
+.bg-vintage-paper {
+  background-color: #F4EBDD;
+  background-image: 
+    radial-gradient(#493D38 0.5px, transparent 0.5px),
+    radial-gradient(#C58B94 0.5px, #F4EBDD 0.5px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+  opacity: 0.98;
+}
+
+.bg-parchment-fiber {
+  background: 
+    linear-gradient(135deg, rgba(251, 247, 239, 0.95) 0%, rgba(244, 235, 221, 0.92) 100%),
+    radial-gradient(circle at 50% 50%, rgba(214, 190, 151, 0.08) 0%, transparent 80%);
+}
+
+/* Aged Paper Edge effect */
+.vintage-paper-sheet {
+  background: #FBF7EF;
+  border: 1px solid rgba(214, 190, 151, 0.45);
+  box-shadow: 
+    0 1px 1px rgba(66, 50, 47, 0.08),
+    0 2px 4px rgba(66, 50, 47, 0.06),
+    0 8px 24px -4px rgba(66, 50, 47, 0.12),
+    inset 0 0 40px rgba(214, 190, 151, 0.15);
+  position: relative;
+}
+
+/* Torn or Deckled paper border illusion */
+.deckled-edge {
+  position: relative;
+  box-shadow: 
+    0 4px 20px -2px rgba(66, 50, 47, 0.14),
+    inset 0 0 30px rgba(197, 139, 148, 0.06);
+}
+
+/* Faint Ruled Lines on Diary Pages */
+.ruled-lines {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(197, 139, 148, 0.15) 31px,
+    rgba(197, 139, 148, 0.15) 32px
+  );
+  line-height: 32px;
+}
+
+/* Vintage Stamp border */
+.stamp-border {
+  border: 2px dashed rgba(169, 83, 102, 0.4);
+  background: rgba(251, 247, 239, 0.8);
+}
+
+/* Smooth motion handling */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
