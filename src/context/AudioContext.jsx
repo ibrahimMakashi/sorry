@@ -200,15 +200,18 @@ export function AudioProvider({ children }) {
     });
   }, []);
 
-  // Duck music when voice note plays
+  // Duck music when voice note plays — gently reduces volume without turning it completely off
   const duckBackgroundMusic = useCallback((duck) => {
     isDuckedRef.current = duck;
-    if (bgMusicRef.current && isMusicPlaying) {
-      bgMusicRef.current.volume = duck 
-        ? 0.06 
-        : storyConfig.audioSettings.backgroundVolume;
+    if (bgMusicRef.current) {
+      const targetVolume = duck ? 0.07 : storyConfig.audioSettings.backgroundVolume;
+      try {
+        bgMusicRef.current.volume = targetVolume;
+      } catch {
+        // safe fallback
+      }
     }
-  }, [isMusicPlaying]);
+  }, []);
 
   // Attempt initial autoplay + listen for first user interaction
   useEffect(() => {

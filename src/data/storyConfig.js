@@ -104,13 +104,12 @@ export const storyConfig = {
   // Section 10 — Voice Message
   voiceMessage: {
     enabled: true,
-    src: "/audio/dummy-voice-message.mp3",
-    realSrc: "/audio/personal-message.mp3",
+    src: "/audio/voice-letter.mp3",
+    realSrc: "/audio/voice-letter.mp3",
     heading: "A few words, in my own voice — Ibrahim",
     supportingText: "Some thoughts are meant to be heard softly.",
     caption: "A personal audio note.",
-    isDemo: true,
-    demoNotice: "Optional personal audio — place recording at public/audio/personal-message.mp3 anytime."
+    isDemo: false,
   },
 
   // Section 11 — Final Letter
