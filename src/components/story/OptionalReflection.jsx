@@ -35,16 +35,17 @@ export default function OptionalReflection({ onContinue }) {
   };
 
   const handleSelectOption = (option) => {
-    if (status === 'preparing' || status === 'sending' || status === 'success') return;
-
-    setSelectedOption(option);
-    setStatus('preparing');
-    trackAnalytics('response_option_selected');
+    // Only block if currently in the middle of sending request
+    if (status === 'sending') return;
 
     // Clear previous timer if any
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
+
+    setSelectedOption(option);
+    setStatus('preparing');
+    trackAnalytics('response_option_selected');
 
     // Automatically trigger the email after exactly 1 second
     timerRef.current = setTimeout(async () => {
@@ -113,134 +114,130 @@ export default function OptionalReflection({ onContinue }) {
               </p>
             </div>
 
-            {/* Success State */}
-            {status === 'success' ? (
-              <motion.div
-                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="py-6 px-4 text-center"
-              >
-                <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-xs">
-                  <CheckCircle2 className="w-7 h-7" />
-                </div>
+            {/* Selection Options List — Always visible so the visitor can select or change options anytime */}
+            <div className="space-y-4">
+              <div className="space-y-2.5" role="radiogroup" aria-label="Response options">
+                {config.options.map((option, idx) => {
+                  const isSelected = selectedOption === option;
 
-                <h4 className="font-serif text-xl sm:text-2xl font-bold text-vintage-wine mb-2">
-                  Thank You
-                </h4>
+                  return (
+                    <motion.div
+                      key={idx}
+                      whileHover={prefersReducedMotion || status === 'sending' ? {} : { scale: 1.008 }}
+                      whileTap={prefersReducedMotion || status === 'sending' ? {} : { scale: 0.995 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={isSelected}
+                        disabled={status === 'sending'}
+                        onClick={() => handleSelectOption(option)}
+                        className={`w-full flex items-center gap-3.5 p-3.5 sm:p-4 rounded-xl border text-left cursor-pointer transition-all duration-200 select-none ${
+                          isSelected
+                            ? 'border-vintage-wine bg-vintage-blush/35 shadow-xs text-vintage-wine font-medium ring-1 ring-vintage-wine/25'
+                            : 'border-vintage-champagne/70 bg-vintage-paper/40 hover:bg-vintage-paper/80 hover:border-vintage-dusty/60 text-vintage-ink/85'
+                        } ${status === 'sending' && !isSelected ? 'opacity-60 cursor-not-allowed' : ''}`}
+                      >
+                        {/* Radio Circle Indicator */}
+                        <div
+                          className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-colors ${
+                            isSelected
+                              ? 'border-vintage-wine bg-vintage-ivory'
+                              : 'border-vintage-champagne bg-vintage-paper'
+                          }`}
+                        >
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              className="w-2 h-2 rounded-full bg-vintage-wine"
+                            />
+                          )}
+                        </div>
 
-                <p className="font-body text-sm sm:text-base text-vintage-ink/85 leading-relaxed max-w-sm mx-auto mb-6">
-                  {config.successMessage}
-                </p>
+                        {/* Option Text */}
+                        <span className="font-body text-xs sm:text-sm leading-snug flex-1">
+                          {option}
+                        </span>
+                      </button>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Live Sending / Progress Indicator */}
+              <AnimatePresence>
+                {isBusy && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="py-2 text-center flex items-center justify-center gap-2 text-vintage-wine text-xs font-sans tracking-wide"
+                  >
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-vintage-rose" />
+                    <span>
+                      {status === 'preparing' ? 'Sending your response in a moment...' : 'Sending your response...'}
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Gentle Success Confirmation (Options remain interactive and visible above) */}
+              <AnimatePresence>
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="p-3.5 rounded-xl bg-emerald-50/90 border border-emerald-200/90 text-emerald-800 text-xs text-center flex items-center justify-center gap-2 shadow-xs"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                    <span>Thank you for responding. You can change your selection anytime.</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Polite Error Message on Delivery Failure */}
+              <AnimatePresence>
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="p-3.5 rounded-xl bg-vintage-blush/40 border border-vintage-rose/30 text-vintage-wine text-xs text-center flex items-center justify-center gap-2"
+                  >
+                    <AlertCircle className="w-4 h-4 text-vintage-rose flex-shrink-0" />
+                    <span>{config.errorMessage}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Bottom Actions: Continue reading or skip */}
+              <div className="pt-2 flex flex-col items-center gap-2 text-center">
+                {status === 'success' && (
+                  <motion.button
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    type="button"
+                    onClick={handleScrollDown}
+                    className="inline-flex items-center gap-2 px-7 py-2.5 rounded-full bg-vintage-wine text-vintage-ivory font-sans text-xs tracking-widest uppercase hover:bg-vintage-espresso transition-all shadow-paper mb-1"
+                  >
+                    <span>CONTINUE READING</span>
+                    <ArrowDown className="w-3.5 h-3.5" />
+                  </motion.button>
+                )}
 
                 <button
-                  onClick={handleScrollDown}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-vintage-wine text-vintage-ivory font-sans text-xs tracking-widest uppercase hover:bg-vintage-espresso transition-all shadow-paper"
+                  type="button"
+                  onClick={handleSkip}
+                  disabled={status === 'sending'}
+                  className="text-xs font-sans text-vintage-dusty hover:text-vintage-ink py-1.5 px-4 transition-colors disabled:opacity-40"
                 >
-                  <span>CONTINUE READING</span>
-                  <ArrowDown className="w-3.5 h-3.5" />
+                  {status === 'success' ? 'Skip to next section' : config.skipText}
                 </button>
-              </motion.div>
-            ) : (
-              /* Selection Form */
-              <div className="space-y-4">
-                
-                {/* Options List */}
-                <div className="space-y-2.5" role="radiogroup" aria-label="Response options">
-                  {config.options.map((option, idx) => {
-                    const isSelected = selectedOption === option;
-
-                    return (
-                      <motion.div
-                        key={idx}
-                        whileHover={prefersReducedMotion || isBusy ? {} : { scale: 1.008 }}
-                        whileTap={prefersReducedMotion || isBusy ? {} : { scale: 0.995 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <button
-                          type="button"
-                          role="radio"
-                          aria-checked={isSelected}
-                          disabled={isBusy}
-                          onClick={() => handleSelectOption(option)}
-                          className={`w-full flex items-center gap-3.5 p-3.5 sm:p-4 rounded-xl border text-left cursor-pointer transition-all duration-200 select-none ${
-                            isSelected
-                              ? 'border-vintage-wine bg-vintage-blush/35 shadow-xs text-vintage-wine font-medium ring-1 ring-vintage-wine/25'
-                              : 'border-vintage-champagne/70 bg-vintage-paper/40 hover:bg-vintage-paper/80 hover:border-vintage-dusty/60 text-vintage-ink/85'
-                          } ${isBusy && !isSelected ? 'opacity-60 cursor-not-allowed' : ''}`}
-                        >
-                          {/* Radio Circle Indicator */}
-                          <div
-                            className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-colors ${
-                              isSelected
-                                ? 'border-vintage-wine bg-vintage-ivory'
-                                : 'border-vintage-champagne bg-vintage-paper'
-                            }`}
-                          >
-                            {isSelected && (
-                              <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="w-2 h-2 rounded-full bg-vintage-wine"
-                              />
-                            )}
-                          </div>
-
-                          {/* Option Text */}
-                          <span className="font-body text-xs sm:text-sm leading-snug flex-1">
-                            {option}
-                          </span>
-                        </button>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {/* Live Trigger Status Indicator */}
-                <AnimatePresence>
-                  {isBusy && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="py-2 text-center flex items-center justify-center gap-2 text-vintage-wine text-xs font-sans tracking-wide"
-                    >
-                      <Loader2 className="w-3.5 h-3.5 animate-spin text-vintage-rose" />
-                      <span>
-                        {status === 'preparing' ? 'Sending your response in a moment...' : 'Sending your response...'}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Polite Error Message on Delivery Failure */}
-                <AnimatePresence>
-                  {status === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="p-3.5 rounded-xl bg-vintage-blush/40 border border-vintage-rose/30 text-vintage-wine text-xs text-center flex items-center justify-center gap-2"
-                    >
-                      <AlertCircle className="w-4 h-4 text-vintage-rose flex-shrink-0" />
-                      <span>{config.errorMessage}</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Bottom Skip Action */}
-                <div className="pt-2 text-center">
-                  <button
-                    type="button"
-                    onClick={handleSkip}
-                    disabled={isBusy}
-                    className="text-xs font-sans text-vintage-dusty hover:text-vintage-ink py-2 px-4 transition-colors disabled:opacity-40"
-                  >
-                    {config.skipText}
-                  </button>
-                </div>
               </div>
-            )}
+            </div>
           </div>
         </SectionReveal>
       </div>
