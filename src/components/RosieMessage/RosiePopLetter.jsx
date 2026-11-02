@@ -28,20 +28,23 @@ export default function RosiePopLetter() {
   const timerRef = useRef(null);
   const remainingTimeRef = useRef(4500); // 4.5 seconds
   const lastStartRef = useRef(null);
+  const hasTriggeredRef = useRef(false);
 
   useEffect(() => {
-    // Check if already seen in this session or dismissed
+    // Clear any previous persistent session storage flags so refresh / reload works reliably
     try {
-      if (sessionStorage.getItem('rosie_popped_letter_seen') === 'true' || isDismissed) {
-        return;
-      }
-    } catch {
-      // safe fallback
+      sessionStorage.removeItem('rosie_popped_letter_seen');
+    } catch {}
+
+    // Check if already triggered during this page load or dismissed by user
+    if (hasTriggeredRef.current || isDismissed) {
+      return;
     }
 
     const startTimer = () => {
       lastStartRef.current = Date.now();
       timerRef.current = setTimeout(() => {
+        hasTriggeredRef.current = true;
         setIsOpen(true);
         try {
           playSound('paperUnfold');
@@ -49,9 +52,6 @@ export default function RosiePopLetter() {
         // Notify Rosie companion on main screen to react with joy
         try {
           window.dispatchEvent(new CustomEvent('rosie_letter_popped'));
-        } catch {}
-        try {
-          sessionStorage.setItem('rosie_popped_letter_seen', 'true');
         } catch {}
       }, remainingTimeRef.current);
     };

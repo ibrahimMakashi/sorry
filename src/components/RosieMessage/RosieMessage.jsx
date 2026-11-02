@@ -27,10 +27,16 @@ export default function RosieMessage({
   const timerRef = useRef(null);
   const remainingTimeRef = useRef(4500); // 4.5 seconds
   const lastStartRef = useRef(null);
+  const hasTriggeredRef = useRef(false);
 
   useEffect(() => {
-    // If envelope is opening/opened, or already dismissed
-    if (envelopeState !== 'closed' || isDismissed) {
+    // Clear any previous persistent session storage flags so refresh / reload works reliably
+    try {
+      sessionStorage.removeItem('rosie_special_message_seen');
+    } catch {}
+
+    // If envelope is opening/opened, or already dismissed or triggered this page load
+    if (envelopeState !== 'closed' || isDismissed || hasTriggeredRef.current) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
         timerRef.current = null;
@@ -40,23 +46,12 @@ export default function RosieMessage({
       return;
     }
 
-    // Check sessionStorage
-    try {
-      if (sessionStorage.getItem('rosie_special_message_seen') === 'true') {
-        return;
-      }
-    } catch (e) {
-      // Fallback if sessionStorage is restricted
-    }
-
     const startTimer = () => {
       lastStartRef.current = Date.now();
       timerRef.current = setTimeout(() => {
+        hasTriggeredRef.current = true;
         setIsVisible(true);
         if (onVisibleChange) onVisibleChange(true);
-        try {
-          sessionStorage.setItem('rosie_special_message_seen', 'true');
-        } catch (e) {}
       }, remainingTimeRef.current);
     };
 
