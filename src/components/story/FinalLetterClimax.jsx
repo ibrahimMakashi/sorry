@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionReveal from '../effects/SectionReveal';
 import AnanyaName from '../effects/AnanyaName';
+import IbrahimName from '../effects/IbrahimName';
 import { storySections } from '../../data/storyData';
 import { Sparkles, Heart } from 'lucide-react';
 
@@ -46,7 +47,7 @@ export default function FinalLetterClimax() {
             {/* Signature */}
             <div className="flex flex-col items-center gap-2">
               <span className="font-handwriting text-3xl text-vintage-wine font-semibold">
-                — Ibrahim
+                — <IbrahimName>Ibrahim</IbrahimName>
               </span>
               <span className="font-serif italic text-xs text-vintage-dusty">
                 With honesty, gratitude, and respect

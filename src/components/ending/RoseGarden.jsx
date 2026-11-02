@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { storyConfig } from '../../data/storyConfig';
 import { RotateCcw, Heart, Sparkles, BookOpen } from 'lucide-react';
 import AnanyaName from '../effects/AnanyaName';
+import IbrahimName from '../effects/IbrahimName';
 import confetti from 'canvas-confetti';
 
 export default function RoseGarden({ onReplay }) {
@@ -107,7 +108,7 @@ export default function RoseGarden({ onReplay }) {
           </div>
 
           <span className="font-handwriting text-xl text-vintage-rose block font-semibold">
-            — Ibrahim
+            — <IbrahimName>Ibrahim</IbrahimName>
           </span>
         </motion.div>
 

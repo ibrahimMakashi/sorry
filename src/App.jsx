@@ -14,6 +14,7 @@ import VoiceNotePlayer from './components/story/VoiceNotePlayer';
 import FinalLetterClimax from './components/story/FinalLetterClimax';
 import RoseGarden from './components/ending/RoseGarden';
 import FloatingPetals from './components/effects/FloatingPetals';
+import FloatingHearts from './components/effects/FloatingHearts';
 import ReadingProgress from './components/effects/ReadingProgress';
 import MusicControl from './components/audio/MusicControl';
 import ScrapbookCompanion from './components/character/ScrapbookCompanion';
@@ -119,8 +120,9 @@ function MainContent() {
           transition={{ duration: 1.0, ease: 'easeOut' }}
           className="relative"
         >
-          {/* Subtle Ambient Floating Petals throughout story */}
+          {/* Subtle Ambient Floating Petals & Soft Floating Hearts throughout story */}
           <FloatingPetals count={8} />
+          <FloatingHearts count={6} />
 
           {/* Reading Progress Indicator */}
           <ReadingProgress />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAudio } from '../../context/AudioContext';
 import { trackInteraction } from '../../utils/analytics';
+import { recordNameClick } from '../../utils/nameInteractionTracker';
 
 export default function AnanyaName({ children = "Ananya", className = "", style = {} }) {
   const { playSound } = useAudio();
@@ -11,6 +12,7 @@ export default function AnanyaName({ children = "Ananya", className = "", style 
     e.stopPropagation();
     playSound('flowerBurst');
     trackInteraction('ananya_name_clicked');
+    recordNameClick('her_name_clicked');
 
     // Get click coordinates in viewport space
     const rect = e.currentTarget.getBoundingClientRect();

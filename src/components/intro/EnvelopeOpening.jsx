@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WaxSeal from './WaxSeal';
 import FloatingPetals from '../effects/FloatingPetals';
+import FloatingHearts from '../effects/FloatingHearts';
 import AnanyaName from '../effects/AnanyaName';
+import IbrahimName from '../effects/IbrahimName';
 import FlyingCompanion from './FlyingCompanion';
+import RosieMessage from '../RosieMessage/RosieMessage';
 import { storyConfig } from '../../data/storyConfig';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useAudio } from '../../context/AudioContext';
@@ -13,6 +16,7 @@ import { ArrowRight, Heart, Sparkles } from 'lucide-react';
 export default function EnvelopeOpening({ onOpenComplete }) {
   // Explicit state machine: 'closed' | 'opening' | 'opened' | 'transitioning'
   const [envelopeState, setEnvelopeState] = useState('closed');
+  const [isRosieSpecialActive, setIsRosieSpecialActive] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const { playSound, startBackgroundMusic } = useAudio();
 
@@ -76,8 +80,9 @@ export default function EnvelopeOpening({ onOpenComplete }) {
       <div className="absolute inset-0 bg-radial-vignette opacity-25 pointer-events-none" />
       <div className="absolute w-[320px] h-[320px] md:w-[500px] md:h-[500px] rounded-full bg-vintage-blush/30 blur-3xl pointer-events-none animate-glow" />
 
-      {/* Floating Petals */}
+      {/* Floating Petals & Soft Floating Hearts */}
       <FloatingPetals count={9} />
+      <FloatingHearts count={6} />
 
       {/* Skip button for accessibility */}
       <button
@@ -89,7 +94,14 @@ export default function EnvelopeOpening({ onOpenComplete }) {
       </button>
 
       {/* Flying Companion Mascot (Rosie) - moves to bottom right when opened so she never overlaps the letter! */}
-      <FlyingCompanion envelopeState={envelopeState} />
+      {!isRosieSpecialActive && <FlyingCompanion envelopeState={envelopeState} />}
+
+      {/* Rosie Special Animated Message (Feature 2) */}
+      <RosieMessage
+        envelopeState={envelopeState}
+        onVisibleChange={setIsRosieSpecialActive}
+        onDismiss={() => setIsRosieSpecialActive(false)}
+      />
 
       {/* Top subtle hint: FADES OUT COMPLETELY when envelope is opened so it NEVER overlaps the letter! */}
       <div className="relative z-20 flex flex-col items-center mb-4 sm:mb-6 w-full max-w-md">
@@ -179,7 +191,9 @@ export default function EnvelopeOpening({ onOpenComplete }) {
             <div>
               {/* Note Header */}
               <div className="flex justify-between items-center border-b border-vintage-blush pb-1.5 mb-2.5">
-                <span className="font-serif italic text-[11px] sm:text-xs text-vintage-dusty">From Ibrahim</span>
+                <span className="font-serif italic text-[11px] sm:text-xs text-vintage-dusty">
+                  From <IbrahimName className="text-vintage-rose font-medium">Ibrahim</IbrahimName>
+                </span>
                 <span className="font-serif text-[10px] sm:text-[11px] text-vintage-dusty">
                   For <AnanyaName className="text-vintage-rose font-medium">Ananya</AnanyaName>
                 </span>

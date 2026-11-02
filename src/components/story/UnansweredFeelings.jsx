@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionReveal from '../effects/SectionReveal';
+import IbrahimName from '../effects/IbrahimName';
 import { storySections } from '../../data/storyData';
 import { Compass, ShieldCheck } from 'lucide-react';
 
@@ -48,7 +49,9 @@ export default function UnansweredFeelings() {
                 <ShieldCheck className="w-4 h-4 text-vintage-rose" />
                 <span>Honesty and mutual respect</span>
               </div>
-              <span className="font-handwriting text-base text-vintage-rose">— Ibrahim</span>
+              <span className="font-handwriting text-base text-vintage-rose">
+                — <IbrahimName>Ibrahim</IbrahimName>
+              </span>
             </div>
           </div>
         </SectionReveal>

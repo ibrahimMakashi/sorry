@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionReveal from '../effects/SectionReveal';
 import AnanyaName from '../effects/AnanyaName';
+import IbrahimName from '../effects/IbrahimName';
 import { storySections } from '../../data/storyData';
 import { Mail, Heart } from 'lucide-react';
 
@@ -57,7 +58,7 @@ export default function ApologyLetter() {
                 <span>Written with sincerity</span>
               </div>
               <span className="font-handwriting text-2xl text-vintage-wine font-semibold">
-                — Ibrahim
+                — <IbrahimName>Ibrahim</IbrahimName>
               </span>
             </div>
           </div>
