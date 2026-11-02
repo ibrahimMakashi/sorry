@@ -18,6 +18,7 @@ import FloatingHearts from './components/effects/FloatingHearts';
 import ReadingProgress from './components/effects/ReadingProgress';
 import MusicControl from './components/audio/MusicControl';
 import ScrapbookCompanion from './components/character/ScrapbookCompanion';
+import RosiePopLetter from './components/RosieMessage/RosiePopLetter';
 import PrivacyNotice from './components/effects/PrivacyNotice';
 import { AudioProvider } from './context/AudioContext';
 import { useScrollProgress } from './hooks/useScrollProgress';
@@ -131,6 +132,9 @@ function MainContent() {
           <ScrapbookCompanion
             currentChapter={activeSection || 'hero'}
           />
+
+          {/* Special Written Letter Sent by Rosie (pops up on screen after 4-5s) */}
+          <RosiePopLetter />
 
           {/* SECTION 02 — CINEMATIC HERO */}
           <CinematicHero onReadStory={handleBeginStory} />

@@ -1,82 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAudio } from '../../context/AudioContext';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { Sparkles, Heart, X } from 'lucide-react';
 
 export default function ScrapbookCompanion({ currentChapter = 'hero' }) {
   const { playSound } = useAudio();
-  const prefersReducedMotion = useReducedMotion();
   const [bubbleText, setBubbleText] = useState("Hi, Ananya! ♡");
   const [showBubble, setShowBubble] = useState(true);
-  const [showSpecialWhisper, setShowSpecialWhisper] = useState(false);
   const [isJump, setIsJump] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
-  const mainTimerRef = useRef(null);
-  const remainingTimeRef = useRef(4500); // 4.5 seconds after landing on main screen
-  const lastStartRef = useRef(null);
-
-  // 4.5s Timer on Main Screen to reveal the special animated message with a distinct spring-bloom animation
+  // Listen for Rosie's letter pop event to react with joy
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem('rosie_main_message_seen') === 'true') {
-        return;
-      }
-    } catch {
-      // safe fallback
-    }
-
-    const startMainTimer = () => {
-      lastStartRef.current = Date.now();
-      mainTimerRef.current = setTimeout(() => {
-        setIsHidden(false); // Make sure Rosie is visible
-        setShowSpecialWhisper(true);
-        setShowBubble(false); // suppress tiny generic bubble
-        setIsJump(true);
-        setTimeout(() => setIsJump(false), 600);
-        try {
-          playSound('flowerBurst');
-        } catch {}
-        try {
-          sessionStorage.setItem('rosie_main_message_seen', 'true');
-        } catch {}
-      }, remainingTimeRef.current);
+    const handleLetterPopped = () => {
+      setIsHidden(false);
+      setBubbleText("A letter just for you! 💌");
+      setShowBubble(true);
+      setIsJump(true);
+      setTimeout(() => setIsJump(false), 600);
+      setTimeout(() => setShowBubble(false), 6000);
     };
 
-    const pauseMainTimer = () => {
-      if (mainTimerRef.current) {
-        clearTimeout(mainTimerRef.current);
-        mainTimerRef.current = null;
-      }
-      if (lastStartRef.current) {
-        const elapsed = Date.now() - lastStartRef.current;
-        remainingTimeRef.current = Math.max(0, remainingTimeRef.current - elapsed);
-      }
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        pauseMainTimer();
-      } else if (document.visibilityState === 'visible' && remainingTimeRef.current > 0 && !showSpecialWhisper) {
-        startMainTimer();
-      }
-    };
-
-    if (document.visibilityState === 'visible') {
-      startMainTimer();
-    }
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      if (mainTimerRef.current) {
-        clearTimeout(mainTimerRef.current);
-        mainTimerRef.current = null;
-      }
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [showSpecialWhisper, playSound]);
+    window.addEventListener('rosie_letter_popped', handleLetterPopped);
+    return () => window.removeEventListener('rosie_letter_popped', handleLetterPopped);
+  }, []);
 
   // Contextual messages per chapter of the story
   useEffect(() => {
@@ -109,16 +55,13 @@ export default function ScrapbookCompanion({ currentChapter = 'hero' }) {
 
     if (msg) {
       setBubbleText(msg);
-      // Only show small generic bubble if special whisper is not actively open
-      if (!showSpecialWhisper) {
-        setShowBubble(true);
-        const timer = setTimeout(() => {
-          setShowBubble(false);
-        }, 4200);
-        return () => clearTimeout(timer);
-      }
+      setShowBubble(true);
+      const timer = setTimeout(() => {
+        setShowBubble(false);
+      }, 4200);
+      return () => clearTimeout(timer);
     }
-  }, [currentChapter, showSpecialWhisper]);
+  }, [currentChapter]);
 
   // Click interaction on character
   const handleTap = (e) => {
@@ -133,7 +76,7 @@ export default function ScrapbookCompanion({ currentChapter = 'hero' }) {
       "A little flower for you 🌸",
       "I mean every word.",
       "Thank you for reading this story ♡",
-      "and in the most selfish way possible, i hope nobody will admires you the way i do ♡"
+      "I hope nobody will admire you the way I do ♡"
     ];
     const picked = randomPhrases[Math.floor(Math.random() * randomPhrases.length)];
     setBubbleText(picked);
@@ -165,129 +108,9 @@ export default function ScrapbookCompanion({ currentChapter = 'hero' }) {
       aria-label="Cute companion character"
     >
       <div className="relative flex flex-col items-end">
-        {/* SPECIAL ANIMATED WHISPER ON MAIN SCREEN — Spring bloom & tilt entrance */}
+        {/* Contextual Speech Bubble */}
         <AnimatePresence>
-          {showSpecialWhisper && (
-            <motion.div
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 0 }
-                  : { opacity: 0, y: 45, x: 15, scale: 0.75, rotate: 5 }
-              }
-              animate={
-                prefersReducedMotion
-                  ? { opacity: 1 }
-                  : {
-                      opacity: 1,
-                      y: 0,
-                      x: 0,
-                      scale: 1,
-                      rotate: 0,
-                      transition: {
-                        type: 'spring',
-                        stiffness: 240,
-                        damping: 18,
-                        mass: 0.8,
-                      },
-                    }
-              }
-              exit={
-                prefersReducedMotion
-                  ? { opacity: 0 }
-                  : {
-                      opacity: 0,
-                      y: 25,
-                      scale: 0.85,
-                      transition: { duration: 0.28 },
-                    }
-              }
-              className="mb-3 max-w-[280px] sm:max-w-[340px] md:max-w-[380px] bg-[#FFFDF9]/98 backdrop-blur-md px-4 py-3.5 sm:px-5 sm:py-4 rounded-2xl rounded-br-xs border border-vintage-champagne/90 shadow-[0_12px_36px_rgba(66,50,47,0.22)] relative text-left pointer-events-auto"
-              style={{
-                transformOrigin: 'bottom right',
-              }}
-            >
-              {/* Top Rose Washi Tape Accent */}
-              <div className="washi-tape washi-tape-rose -top-2.5 right-6 w-16 rotate-[2.5deg]" />
-
-              {/* Close Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playSound('buttonClick');
-                  setShowSpecialWhisper(false);
-                }}
-                className="absolute top-2 right-2 p-1 rounded-full text-vintage-ink/40 hover:text-vintage-rose hover:bg-vintage-champagne/20 transition-colors focus:outline-none focus:ring-1 focus:ring-vintage-rose/50"
-                aria-label="Dismiss message"
-                title="Close"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Header with Sparkles */}
-              <div className="inline-flex items-center gap-1.5 mb-1.5 text-[10px] sm:text-[11px] font-sans uppercase tracking-wider text-vintage-rose font-medium">
-                <Sparkles className="w-3 h-3 text-vintage-rose animate-spin-slow" />
-                <span>Rosie's whisper ♡</span>
-              </div>
-
-              {/* Exact message content with highlighted quote */}
-              <p className="font-handwriting text-base sm:text-lg text-vintage-ink leading-relaxed pr-3">
-                and in the most selfish way possible,{' '}
-                <span className="text-vintage-wine font-semibold text-vintage-rose drop-shadow-[0_0_8px_rgba(217,114,134,0.45)] border-b border-vintage-rose/30 pb-0.5 inline">
-                  i hope nobody will admires you the way i do
-                </span>
-              </p>
-
-              {/* Speech Pointer pointing down right toward Rosie */}
-              <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-[#FFFDF9] rotate-45 border-r border-b border-vintage-champagne/90" />
-
-              {/* Rising Mini Hearts from Rosie */}
-              {!prefersReducedMotion && (
-                <>
-                  <motion.div
-                    initial={{ opacity: 0, y: 5, scale: 0.5 }}
-                    animate={{
-                      opacity: [0, 1, 0],
-                      y: [-5, -35],
-                      x: [0, -12],
-                      scale: [0.6, 1.1, 0.9],
-                    }}
-                    transition={{
-                      duration: 2.4,
-                      repeat: Infinity,
-                      ease: 'easeOut',
-                      delay: 0.2,
-                    }}
-                    className="absolute -top-3 right-8 pointer-events-none"
-                  >
-                    <Heart className="w-3.5 h-3.5 text-vintage-rose fill-vintage-rose/70" />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 5, scale: 0.5 }}
-                    animate={{
-                      opacity: [0, 1, 0],
-                      y: [0, -42],
-                      x: [0, 10],
-                      scale: [0.5, 1, 0.8],
-                    }}
-                    transition={{
-                      duration: 2.8,
-                      repeat: Infinity,
-                      ease: 'easeOut',
-                      delay: 1.0,
-                    }}
-                    className="absolute -top-2 right-2 pointer-events-none"
-                  >
-                    <Heart className="w-2.5 h-2.5 text-vintage-dusty fill-vintage-dusty/60" />
-                  </motion.div>
-                </>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Standard Contextual Speech Bubble (only when special whisper is not showing) */}
-        <AnimatePresence>
-          {showBubble && !showSpecialWhisper && (
+          {showBubble && (
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
