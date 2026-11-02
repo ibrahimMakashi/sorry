@@ -110,7 +110,6 @@ export function recordNameClick(type) {
           dateStyle: 'medium',
           timeStyle: 'short',
         }),
-        website_url: typeof window !== 'undefined' ? window.location.href : '',
       }).catch((err) => {
         console.warn('Name interaction notification failed silently:', err);
       });

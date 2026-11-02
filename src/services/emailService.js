@@ -111,7 +111,6 @@ export async function sendResponseEmail(selectedOption) {
  * @param {number} data.click_count - Total clicks within the time window
  * @param {string} data.time_window - Duration string (e.g., '60 seconds')
  * @param {string} data.event_time - Formatted timestamp
- * @param {string} data.website_url - Current URL
  * @returns {Promise<{ success: boolean, message?: string }>}
  */
 export async function sendNameInteractionEmail(data) {
@@ -133,9 +132,7 @@ export async function sendNameInteractionEmail(data) {
     click_count: String(data.click_count),
     time_window: data.time_window,
     event_time: data.event_time,
-    website_url: data.website_url,
-    device_type: getDeviceType(),
-    // Dual compatibility with existing template
+    // Dual compatibility with existing single template
     selected_option: `Repeated Name Click: ${data.interaction_type} (${data.click_count} clicks in ${data.time_window})`,
     submission_time: data.event_time,
   };
