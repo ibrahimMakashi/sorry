@@ -19,6 +19,7 @@ import ReadingProgress from './components/effects/ReadingProgress';
 import MusicControl from './components/audio/MusicControl';
 import ScrapbookCompanion from './components/character/ScrapbookCompanion';
 import RosiePopLetter from './components/RosieMessage/RosiePopLetter';
+import DiwaliGreeting from './components/DiwaliGreeting/DiwaliGreeting';
 import PrivacyNotice from './components/effects/PrivacyNotice';
 import { AudioProvider } from './context/AudioContext';
 import { useScrollProgress } from './hooks/useScrollProgress';
@@ -102,6 +103,9 @@ function MainContent() {
       
       {/* Global Ambient Background Music Controller */}
       <MusicControl />
+
+      {/* SPECIAL DIWALI GREETING CARD (Appears ~2.5s after initial website load) */}
+      <DiwaliGreeting />
 
       {/* SECTION 01 — ENVELOPE INTRODUCTION */}
       <AnimatePresence mode="wait">
